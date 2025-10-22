@@ -47,13 +47,14 @@ jobs:
         env:
           # GITHUB_TOKEN is provided by Actions automatically; the action will use it if needed
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+
       - name: Upload gitleaks report as artifact
-        uses: actions/upload-artifact@v3
+        # Updated to actions/upload-artifact@v4 because v3 is deprecated
+        uses: actions/upload-artifact@v4
         with:
           name: gitleaks-report
           path: gitleaks-report.json
-    
+
       - name: Fail workflow if secrets were found (optional)
         if: steps.gitleaks.outputs.exit_code != '' && steps.gitleaks.outputs.exit_code != '0'
         run: |
